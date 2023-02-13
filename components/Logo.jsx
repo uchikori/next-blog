@@ -3,7 +3,6 @@ import styles from '@/styles/Logo.module.css';
 
 export const Logo = (props) => {
   const { boxOn = false } = props
-  console.log(boxOn);
 
   return (
     <>
