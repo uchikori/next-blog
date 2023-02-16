@@ -1,0 +1,35 @@
+.flexContainer{
+  composes: sideBySide from './utils.module.css';
+  gap: var(--space-md);
+  margin: var(--space-md) 0 var(--sace-lg);
+}
+
+.main{
+  width: 768px;
+}
+@media(max-width:767px){
+  .main{
+    width: 100%;
+  }
+}
+.sidebar{
+  width: 240px;
+  position: sticky;
+  top: 40px;
+  align-self: flex-start;
+}
+
+.sidebar * {
+  text-align: right;
+}
+.sidebar :is(div, ul){
+  width: fit-content;
+  margin-left: auto;
+  place-items: flex-end;
+  place-content: flex-end;
+}
+@media(max-width:767px) {
+  .sidebar {
+    width: 100%;
+  }
+}
