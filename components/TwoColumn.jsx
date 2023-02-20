@@ -22,6 +22,7 @@ export const TwoColumnMain = (props) => {
   )
 
 }
+
 export const TwoColumnSidebar = (props) => {
 
   const { children } = props;

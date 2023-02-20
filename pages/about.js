@@ -3,11 +3,33 @@ import { Container } from "@/components/Container"
 import { Hero } from "@/components/Hero"
 import { PostBody } from "@/components/POstBody"
 import { TwoColumn, TwoColumnMain, TwoColumnSidebar } from "@/components/TwoColumn"
+import Image from "next/image"
+import eyecatch from "@/images/about.jpg";
+import { useState, useEffect } from "react"
+
 
 export default function About(){
+
+  const [width, setWidth] = useState(0);
+  useEffect(() => {
+    setWidth(window.devicePixelRatio);
+  }, []);
+  console.log(width);
   return (
     <Container>
       <Hero title="About" subtitle="About development activities" />
+      <figure>
+        <Image
+        src={ eyecatch }
+        alt=""
+        width={1152}
+        height={576}
+        sizes="(min-width: 1152px) 1152px, 100vw"
+        style={{ width: '100%', height:'auto'}}
+        priority
+        placeholder="blur"
+        />
+      </figure>
       <TwoColumn>
 
         <TwoColumnMain>
