@@ -6,18 +6,27 @@ import { TwoColumn, TwoColumnMain, TwoColumnSidebar } from "@/components/TwoColu
 import Image from "next/image"
 import eyecatch from "@/images/about.jpg";
 import { useState, useEffect } from "react"
+import { Meta } from "@/components/Meta"
 
 
 export default function About(){
 
   const [width, setWidth] = useState(0);
+  console.log(width);
   useEffect(() => {
     setWidth(window.devicePixelRatio);
-  }, []);
-  console.log(width);
+  }, [width]);
+  
   return (
     <Container>
+
+      <Meta 
+      pageTitle="アバウト"
+      pageDesc="About development activities"
+      />
+
       <Hero title="About" subtitle="About development activities" />
+
       <figure>
         <Image
         src={ eyecatch }
@@ -30,6 +39,7 @@ export default function About(){
         placeholder="blur"
         />
       </figure>
+
       <TwoColumn>
 
         <TwoColumnMain>
@@ -56,7 +66,6 @@ export default function About(){
         </TwoColumnSidebar>
 
       </TwoColumn>
-
 
     </Container>
   )
