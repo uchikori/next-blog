@@ -13,7 +13,7 @@ export default function Home() {
     <>
       <Container>
         <Meta />
-        <Hero title="CUBE" subtitle="アウトプットしていく" imageOn />
+        <Hero title="CUBE" subtitle="アウトプットしていくサイト" imageOn />
       </Container>
     </>
   );
