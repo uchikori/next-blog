@@ -1,10 +1,15 @@
+import { Container } from "@/components/Container";
 import { getPostBySlug } from "@/lib/client";
 
 export default function Schedule(props) {
   const { title, publish, content, eyecatch, categories } = props;
   console.log(props);
 
-  return <h1>{title}</h1>;
+  return (
+    <Container>
+      <h1>{title}</h1>
+    </Container>
+  );
 }
 
 export const getStaticProps = async () => {
