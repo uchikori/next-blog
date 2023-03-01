@@ -82,7 +82,7 @@ export default function Post(props) {
  * 全ての記事のスラッグを指定
  ********************************************/
 export const getStaticPaths = async () => {
-  const allSlugs = await getAllSlugs();
+  const allSlugs = await getAllSlugs(); //lib/client.jsx
   return {
     paths: allSlugs.map(({ slug }) => {
       return `/blog/${slug}`;
@@ -91,42 +91,49 @@ export const getStaticPaths = async () => {
   };
 };
 /********************************************
- * 全ての記事の取得
+ * getStaticPathsから渡されたcontext情報から
+ * スラッグを抽出し記事情報を取得
  ********************************************/
 export const getStaticProps = async (context) => {
   const slug = context.params.slug;
-  const post = await getPostBySlug(slug); //client.jsx
-  const description = extractText(post.content);
-  const eyecatch = post.eyecatch ?? eyecatchLocal;
+  const post = await getPostBySlug(slug); //lib/client.jsx
 
-  const { base64 } = await getPlaiceholder(eyecatch.url);
-  eyecatch.blurDataURL = base64;
+  //スラッグが渡されない場合はnotFound
+  if (!post) {
+    return { notFound: true };
+  } else {
+    const description = extractText(post.content); //lib/extraxt-text.jsx
+    const eyecatch = post.eyecatch ?? eyecatchLocal;
 
-  const allSlugs = await getAllSlugs();
-  const [prevPost, nextPost] = prevNextPost(allSlugs, slug);
+    const { base64 } = await getPlaiceholder(eyecatch.url);
+    eyecatch.blurDataURL = base64;
 
-  //投稿のコンテンツ部分からコードハイライト部分を抽出し、hiright.jsの効果を付与する
-  const $ = load(post.content, null, false);
-  $("pre code").each((_, elm) => {
-    const result = hljs.highlightAuto($(elm).text());
-    $(elm).html(result.value);
-    $(elm).addClass("hljs");
-  });
-  //htmlに変換して渡す
-  post.content = $.html();
+    const allSlugs = await getAllSlugs(); //lib/client.jsx
+    const [prevPost, nextPost] = prevNextPost(allSlugs, slug); //lib/prev-next-post.jsx
 
-  return {
-    props: {
-      title: post.title,
-      publish: post.publishDate,
-      content: post.content,
-      eyecatch: eyecatch,
-      categories: post.categories,
-      description: description,
-      prevPost: prevPost,
-      nextPost: nextPost,
-    },
-  };
+    //投稿のコンテンツ部分からコードハイライト部分を抽出し、hiright.jsの効果を付与する
+    const $ = load(post.content, null, false);
+    $("pre code").each((_, elm) => {
+      const result = hljs.highlightAuto($(elm).text());
+      $(elm).html(result.value);
+      $(elm).addClass("hljs");
+    });
+    //htmlに変換して渡す
+    post.content = $.html();
+
+    return {
+      props: {
+        title: post.title,
+        publish: post.publishDate,
+        content: post.content,
+        eyecatch: eyecatch,
+        categories: post.categories,
+        description: description,
+        prevPost: prevPost,
+        nextPost: nextPost,
+      },
+    };
+  }
 };
 
 //Promise構文で記述した場合

@@ -8,8 +8,7 @@ export const prevNextPost = (allSlugs, currentSlug) => {
   const prevPost =
     index + 1 === numberOfPosts ? { title: "", slug: "" } : allSlugs[index + 1];
   console.log(prevPost);
-  const nextPost =
-    index - 1 === 0 ? { title: "", slug: "" } : allSlugs[index - 1];
+  const nextPost = index === 0 ? { title: "", slug: "" } : allSlugs[index - 1];
   console.log(nextPost);
 
   return [prevPost, nextPost];

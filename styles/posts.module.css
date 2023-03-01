@@ -1,0 +1,19 @@
+.gridContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-jump);
+  margin-top: var(--space-xs);
+  margin-bottom: var(--space-lg);
+}
+
+.eachPost h2 {
+  margin-top: 0.5em;
+  font-size: var(--small-heading3);
+  font-weight: 400;
+}
+
+.eachPost figure {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+}

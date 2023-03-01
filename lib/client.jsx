@@ -35,15 +35,32 @@ export const getPostBySlug = async (slug) => {
 /********************************************
  * 全ての記事のスラッグとタイトル取得
  ********************************************/
-export const getAllSlugs = async () => {
+export const getAllSlugs = async (limit = 100) => {
   try {
     const slugs = await client.get({
       endpoint: "blogs",
-      queries: { limit: 100, fields: "title,slug", orders: "-publishDate" },
+      queries: { limit: limit, fields: "title,slug", orders: "-publishDate" },
     });
     return slugs.contents;
   } catch (error) {
     console.log("--getAllSlugs--");
+    console.log(error);
+  }
+};
+
+export const getAllPosts = async (limit = 100) => {
+  try {
+    const posts = await client.get({
+      endpoint: "blogs",
+      queries: {
+        limit: limit,
+        fields: "title,slug,eyecatch",
+        orders: "-publishDate",
+      },
+    });
+    return posts.contents;
+  } catch (error) {
+    console.log("--getAllPosts--");
     console.log(error);
   }
 };
