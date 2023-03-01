@@ -12,12 +12,24 @@ import Image from "next/image";
 import { load } from "cheerio";
 import hljs from "highlight.js";
 import "highlight.js/styles/vs2015.css";
-import { Contact } from "@/components/Contact";
+import { PostCategories } from "@/components/post-categories";
+import { extractText } from "@/lib/extract-text";
+import { Meta } from "@/components/Meta";
+import { eyecatchLocal } from "@/lib/Constant";
+import { getPlaiceholder } from "plaiceholder";
 
 export default function Schedule(props) {
-  const { title, publish, content, eyecatch, categories } = props;
+  const { title, publish, content, eyecatch, categories, description } = props;
+
   return (
     <Container>
+      <Meta
+        pageTitle={title}
+        pageDesc={description}
+        pageImg={eyecatch.url}
+        pageImgW={eyecatch.width}
+        pageImgH={eyecatch.height}
+      />
       <article>
         <PostHeader title={title} subtitle="Blog Article" publish={publish} />
 
@@ -30,6 +42,8 @@ export default function Schedule(props) {
             sizes="1152px, (max-width: 1152px) 100vw"
             style={{ width: "100%", height: "auto" }}
             priority
+            placeholder="blur"
+            blurDataURL={eyecatch.blurDataURL}
           />
         </figure>
 
@@ -40,7 +54,7 @@ export default function Schedule(props) {
             </PostBody>
           </TwoColumnMain>
           <TwoColumnSidebar>
-            <Contact />
+            <PostCategories categories={categories} />
           </TwoColumnSidebar>
         </TwoColumn>
       </article>
@@ -49,15 +63,22 @@ export default function Schedule(props) {
 }
 
 export const getStaticProps = async () => {
-  const slug = "schedule";
+  const slug = "micro";
   const post = await getPostBySlug(slug);
+  const description = extractText(post.content);
+  const eyecatch = post.eyecatch ?? eyecatchLocal;
 
+  const { base64 } = await getPlaiceholder(eyecatch.url);
+  eyecatch.blurDataURL = base64;
+
+  //投稿のコンテンツ部分からコードハイライト部分を抽出し、hiright.jsの効果を付与する
   const $ = load(post.content, null, false);
   $("pre code").each((_, elm) => {
     const result = hljs.highlightAuto($(elm).text());
     $(elm).html(result.value);
     $(elm).addClass("hljs");
   });
+  //htmlに変換して渡す
   post.content = $.html();
 
   return {
@@ -65,8 +86,9 @@ export const getStaticProps = async () => {
       title: post.title,
       publish: post.publishDate,
       content: post.content,
-      eyecatch: post.eyecatch,
+      eyecatch: eyecatch,
       categories: post.categories,
+      description: description,
     },
   };
 };

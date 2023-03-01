@@ -1,7 +1,5 @@
 import parse from "html-react-parser";
 import Image from "next/image";
-import { load } from "cheerio";
-import hljs from "highlight.js";
 
 export const ConvertBody = (props) => {
   const { contentHTML } = props;
@@ -20,15 +18,6 @@ export const ConvertBody = (props) => {
           />
         );
       }
-      // if (node.name === "pre") {
-      //   const $ = load(contentHTML);
-      //   $("pre code").each((_, elm) => {
-      //     const result = hljs.highlightAuto($("pre code").text());
-      //     $(elm).html(result.value);
-      //     $(elm).addClass("hljs");
-      //   });
-      //   return <pre>{$(elm)}</pre>;
-      // }
     },
   });
   return <>{contentReact}</>;
