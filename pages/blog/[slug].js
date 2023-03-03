@@ -46,6 +46,7 @@ export default function Post(props) {
 
         <figure>
           <Image
+            key={eyecatch.url}
             src={eyecatch.url}
             alt=""
             width={eyecatch.width}
