@@ -1,19 +1,84 @@
-.list{
+.list {
   display: flex;
   gap: 2em;
 }
-@media(hover: hover){
-  .list a:hover{
+.btn {
+  display: none;
+}
+@media (hover: hover) {
+  .list a:hover {
     color: var(--accent);
   }
 }
 
-@media (hover: none){
-  .list a{
+@media (hover: none) {
+  .list a {
     -webkit-tap-highlight-color: transparent;
   }
 
-  .list a:active{
+  .list a:active {
     color: var(--accent);
+  }
+}
+@media (max-width: 767px) {
+  .btn {
+    all: unset;
+    outline: revert;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+    width: 42px;
+    height: 42px;
+    display: grid;
+    position: relative;
+    z-index: 200;
+    place-items: center;
+  }
+  .btn::before,
+  .btn::after,
+  .btn .bar {
+    grid-area: 1/1;
+    content: "";
+    display: block;
+    width: 32px;
+    height: 1px;
+    background-color: currentColor;
+  }
+
+  .open .btn {
+    color: var(--white);
+  }
+  .close .btn {
+    color: var(--gray-75);
+  }
+  .close .btn::before {
+    transform: translateY(8px);
+  }
+  .close .btn::after {
+    transform: translateY(-8px);
+  }
+  .open .btn::before {
+    transform: rotate(45deg);
+  }
+  .open .btn::after {
+    transform: rotate(-45deg);
+  }
+  .open .btn .bar {
+    transform: scale(0);
+  }
+  .list {
+    position: fixed;
+    inset: 0 -100% 0 100%;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.8);
+    transition: transform 0.4s ease;
+    display: grid;
+    gap: 40px;
+    place-content: center;
+    text-align: center;
+    color: white;
+  }
+  .open .list {
+    transform: translateX(-100%);
+    transition: transform 0.4s ease;
   }
 }
