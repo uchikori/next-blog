@@ -35,7 +35,7 @@ export const getPostBySlug = async (slug) => {
 /********************************************
  * 全ての記事のスラッグとタイトル取得
  ********************************************/
-export const getAllSlugs = async (limit = 100) => {
+export async function getAllSlugs(limit = 100) {
   try {
     const slugs = await client.get({
       endpoint: "blogs",
@@ -46,9 +46,9 @@ export const getAllSlugs = async (limit = 100) => {
     console.log("--getAllSlugs--");
     console.log(error);
   }
-};
+}
 
-export const getAllPosts = async (limit = 100) => {
+export async function getAllPosts(limit = 100) {
   try {
     const posts = await client.get({
       endpoint: "blogs",
@@ -63,4 +63,4 @@ export const getAllPosts = async (limit = 100) => {
     console.log("--getAllPosts--");
     console.log(error);
   }
-};
+}

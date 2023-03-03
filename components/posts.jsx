@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 export const Posts = (props) => {
   const { posts } = props;
-  console.log(posts[0].eyecatch.url);
   return (
     <div className={styles.gridContainer}>
       {posts.map((post) => {
