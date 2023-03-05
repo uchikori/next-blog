@@ -4,7 +4,7 @@
 export const siteMeta = {
   siteTitle: "CUBE",
   siteDesc: "アウトプットしていくサイト",
-  siteUrl: "https://localhost:8000",
+  siteUrl: "https://next-blog-kohl-two.vercel.app",
   siteLang: "ja",
   siteLocale: "ja_JP",
   siteType: "website",
