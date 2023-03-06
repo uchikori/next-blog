@@ -15,7 +15,7 @@ import "highlight.js/styles/vs2015.css";
 import { PostCategories } from "@/components/post-categories";
 import { extractText } from "@/lib/extract-text";
 import { Meta } from "@/components/Meta";
-import { eyecatchLocal } from "@/lib/Constant";
+import imgixLoader, { eyecatchLocal } from "@/lib/Constant";
 import { getPlaiceholder } from "plaiceholder";
 import { prevNextPost } from "@/lib/prev-next-post";
 import { Pagination } from "@/components/Pagination";
@@ -46,7 +46,8 @@ export default function Post(props) {
 
         <figure>
           <Image
-            // key={eyecatch.url}
+            loader={imgixLoader}
+            key={eyecatch.url}
             src={eyecatch.url}
             alt=""
             width={eyecatch.width}
@@ -56,6 +57,7 @@ export default function Post(props) {
             priority
             placeholder="blur"
             blurDataURL={eyecatch.blurDataURL}
+            quality={80}
           />
         </figure>
 

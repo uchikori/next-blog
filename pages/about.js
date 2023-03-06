@@ -8,17 +8,26 @@ import {
   TwoColumnSidebar,
 } from "@/components/TwoColumn";
 import Image from "next/image";
-import eyecatch from "@/images/about.jpg";
+// import eyecatch from "@/images/about.jpg";
 import { useState, useEffect } from "react";
 import { Meta } from "@/components/Meta";
 import { Accordion } from "@/components/accordion";
+import imgixLoader from "@/lib/Constant";
+
+const eyecatch = {
+  src: "https://images.microcms-assets.io/assets/846561520a4c478391bf0f4595b7300e/ffe615d22c48481c9de9c43a8cf2d631/about.jpg",
+  height: "960",
+  width: "1920",
+  blurDataURL:
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAIAAAA7ljmRAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAMklEQVR4nAEnANj/ANetn6Crq4mbj4ZwWgDYz7Q5eGipwK3/+dYATUc5AA0AIyUcYlNDmFMRq46eii0AAAAASUVORK5CYII=",
+};
 
 export default function About() {
-  const [width, setWidth] = useState(0);
-  console.log(width);
-  useEffect(() => {
-    setWidth(window.devicePixelRatio);
-  }, [width]);
+  // const [width, setWidth] = useState(0);
+  // console.log(width);
+  // useEffect(() => {
+  //   setWidth(window.devicePixelRatio);
+  // }, [width]);
 
   return (
     <Container>
@@ -34,14 +43,17 @@ export default function About() {
 
       <figure>
         <Image
-          src={eyecatch}
+          loader={imgixLoader}
+          src={eyecatch.src}
           alt=""
           width={1152}
           height={576}
           sizes="(min-width: 1152px) 1152px, 100vw"
           style={{ width: "100%", height: "auto" }}
           priority
+          quality={80}
           placeholder="blur"
+          blurDataURL={eyecatch.blurDataURL}
         />
       </figure>
 

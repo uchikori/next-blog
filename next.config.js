@@ -2,7 +2,16 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    domains: ["images.microcms-assets.io"],
+    loader: "custom",
+    loaderFile: "./lib/Constant.jsx",
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.microcms-assets.io",
+        port: "",
+        pathname: "/assets/**",
+      },
+    ],
   },
 };
 

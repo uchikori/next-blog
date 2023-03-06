@@ -1,3 +1,4 @@
+import imgixLoader from "@/lib/Constant";
 import parse from "html-react-parser";
 import Image from "next/image";
 
@@ -9,12 +10,14 @@ export const ConvertBody = (props) => {
         const { src, alt, width, height } = node.attribs;
         return (
           <Image
+            loader={imgixLoader}
             src={src}
             width={width}
             height={height}
             alt={alt}
             sizes="768px, (max-width: 768px) 100vw"
             style={{ width: "100%", height: "auto" }}
+            quality={80}
           />
         );
       }
