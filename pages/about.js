@@ -9,10 +9,10 @@ import {
 } from "@/components/TwoColumn";
 import Image from "next/image";
 // import eyecatch from "@/images/about.jpg";
-import { useState, useEffect } from "react";
 import { Meta } from "@/components/Meta";
 import { Accordion } from "@/components/accordion";
 import imgixLoader from "@/lib/Constant";
+import { BlueFrame } from "@/components/BlueFrame";
 
 const eyecatch = {
   src: "https://images.microcms-assets.io/assets/846561520a4c478391bf0f4595b7300e/ffe615d22c48481c9de9c43a8cf2d631/about.jpg",
@@ -100,3 +100,7 @@ export default function About() {
     </Container>
   );
 }
+
+About.getLayout = function getLayout(page) {
+  return <BlueFrame>{page}</BlueFrame>;
+};

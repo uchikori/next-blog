@@ -13,7 +13,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home(props) {
   const { posts } = props;
-  console.log(posts[0].eyecatch.blurDataURL);
+
   return (
     <>
       <Container>
